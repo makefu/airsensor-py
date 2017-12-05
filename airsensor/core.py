@@ -8,6 +8,9 @@ class AirSensor(object):
 
         dev = usb.core.find(idVendor=vendor, idProduct=product)
 
+        if not dev:
+            raise IOError("cannot find USB device with id {}:{}".format(vendor,product))
+
         if dev.is_kernel_driver_active(0):
             dev.detach_kernel_driver(0)
         dev.reset()
