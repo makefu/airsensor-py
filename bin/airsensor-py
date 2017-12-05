@@ -6,7 +6,8 @@ from datetime import datetime
 
 @click.command()
 @click.option('--json', 'json_output', is_flag=True, help="Output result in JSON format.")
-def cli(json_output):
+@click.option('--raw', 'raw_output', is_flag=True, help="Output result in RAW format (no timestamp).")
+def cli(json_output,raw_output):
 
     sensor = AirSensor()
 
@@ -16,6 +17,8 @@ def cli(json_output):
     if json_output:
         output = {"timestamp": curr_time, "voc": curr_value}
         print(json.dumps(output))
+    elif raw_output:
+        print(curr_value)
     else:
         print("{} - {}".format(curr_time, curr_value))
 
